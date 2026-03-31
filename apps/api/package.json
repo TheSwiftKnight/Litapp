@@ -1,0 +1,23 @@
+{
+  "name": "novel-english-tutor-api",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "lint": "echo \"(skip)\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "firebase-admin": "latest",
+    "express": "latest",
+    "zod": "latest",
+    "novel-english-tutor-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
+

@@ -1,0 +1,26 @@
+{
+  "name": "novel-english-tutor-functions",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "echo \"(skip)\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "dev": "echo \"Run firebase emulators:start in real setup\""
+  },
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "firebase-admin": "latest",
+    "firebase-functions": "latest",
+    "novel-english-tutor-shared": "workspace:*",
+    "pdf-parse": "latest",
+    "unzipper": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}
+

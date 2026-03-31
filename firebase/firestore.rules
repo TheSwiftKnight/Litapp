@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users are keyed by uid.
+    match /users/{userId} {
+      allow read, create, update, delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /projects/{projectId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /books/{bookId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /importJobs/{importJobId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /flashcards/{cardId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /reviewStates/{cardId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /reviewLogs/{reviewLogId} {
+      allow read: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+      allow update: if false;
+    }
+  }
+}
+

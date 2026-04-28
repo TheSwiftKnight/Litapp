@@ -3,7 +3,9 @@ import cors from "cors";
 import { z } from "zod";
 import { callGeminiJson } from "./gemini";
 import { requireAuth } from "./middleware/requireAuth";
-import { db, storage, admin } from "./firebaseAdmin";
+import { db, storage, admin, ensureAdminApp } from "./firebaseAdmin";
+import { verifyFirebaseTokens, type AuthedRequest } from "./middleware/auth";
+
 import {
   ImportBookRequestSchema,
   ImportBookResponseSchema,
@@ -11,7 +13,9 @@ import {
   LookupContextResponseSchema,
   ReviewGenerateRequestSchema,
   ReviewGenerateResponseSchema
-} from "novel-english-tutor-shared";
+} from "litapp-shared";
+
+ensureAdminApp();
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -198,5 +202,10 @@ function _unused() {
   // keep file stable
 }
 
-app.get("/healthz", (_req, res) => res.json({ ok: true }));
-
+app.get("/health", (_req, res) => {
+  res.json({
+    ok: true,
+    service: "novel-api",
+    projectId: process.env.FIREBASE_PROJECT_ID ?? null,
+  });
+});

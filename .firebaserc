@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "litapp-dev",
+    "litapp-dev": "litapp-dev"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return isSignedIn() && request.resource.data.ownerUid == request.auth.uid;
+    }
+
+    function existingIsOwner() {
+      return isSignedIn() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /users/{uid} {
+      allow read, update, delete: if isSignedIn() && request.auth.uid == uid;
+      allow create: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    match /projects/{projectId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+
+    match /books/{bookId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+
+    match /importJobs/{importJobId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+
+    match /flashcards/{cardId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+
+    match /reviewStates/{cardId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+
+    match /reviewLogs/{reviewLogId} {
+      allow create: if isOwner();
+      allow read, update, delete: if existingIsOwner();
+    }
+  }
+}

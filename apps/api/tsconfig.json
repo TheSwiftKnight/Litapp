@@ -1,12 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022",
     "module": "CommonJS",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "types": ["node"],
-    "outDir": "dist",
-    "noEmit": false
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
 }
-

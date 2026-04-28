@@ -9,13 +9,20 @@ export function useAuthState() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("useAuthState mounted");
+    console.log("initial currentUser:", firebaseAuth.currentUser);
+
     const unsub = onAuthStateChanged(firebaseAuth, (u) => {
+      console.log("onAuthStateChanged fired:", u);
+      console.log("uid:", u?.uid);
+      console.log("email:", u?.email);
+
       setUser(u);
       setLoading(false);
     });
+
     return () => unsub();
   }, []);
 
   return { user, loading };
 }
-

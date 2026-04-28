@@ -1,15 +1,34 @@
 .DS_Store
-node_modules
-.next
-out
-dist
-build
-firebase-debug.log*
-.firebase
+node_modules/
+.pnpm-store/
+
+# build output
+.next/
+out/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# local tooling state
+.firebase/
+.turbo/
+.vercel/
+
+# logs
 *.log
+firebase-debug.log*
+npm-debug.log*
 pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # local env
 .env
+.env.local
 .env.*.local
-.pnpm-store
+
+# editor settings
+.idea/
+.vscode/
+.agents/

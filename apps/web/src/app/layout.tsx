@@ -2,7 +2,7 @@ import "./globals.css";
 import type { ReactNode } from "react";
 
 export const metadata = {
-  title: "Novel English Tutor",
+  title: "LitApp",
   description: "Learn English by reading novels (MVP)"
 };
 

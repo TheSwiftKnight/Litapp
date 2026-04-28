@@ -3,14 +3,14 @@
   "compilerOptions": {
     "jsx": "preserve",
     "moduleResolution": "Bundler",
-    "plugins": [],
+    "plugins": [{ "name": "next" }],
     "strict": true,
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["./src/*"]
+    },
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts", "next-env.d.ts"]
 }
-

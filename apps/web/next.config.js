@@ -1,16 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextPwa = require("next-pwa");
+import nextPwa from "next-pwa";
 
 const withPwa = nextPwa({
   dest: "public",
   register: true,
-  skipWaiting: true
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
 });
 
 const config = {
   reactStrictMode: true,
-  output: "export"
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
 };
 
-module.exports = withPwa(config);
-
+export default withPwa(config);

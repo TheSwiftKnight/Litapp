@@ -1,5 +1,5 @@
 import { getApps, initializeApp } from "firebase/app";
-import { getAppCheck, initializeAppCheck, ReCaptchaV3Provider, getToken } from "firebase/app-check";
+import { type AppCheck, initializeAppCheck, ReCaptchaEnterpriseProvider, getToken } from "firebase/app-check";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -16,26 +16,38 @@ const app = getApps().length
   ? getApps()[0]
   : initializeApp(firebaseConfig);
 
+let appCheckInstance: AppCheck | null = null;
+
+const appCheckSiteKey = process.env.NEXT_PUBLIC_APP_CHECK_SITE_KEY;
+const shouldEnableAppCheck =
+  typeof window !== "undefined" && !!appCheckSiteKey;
+
+  if (shouldEnableAppCheck) {
+    if (process.env.NODE_ENV === "development") {
+        (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN =
+        process.env.NEXT_PUBLIC_FIREBASE_APPCHECK_DEBUG_TOKEN || true;
+    }
+  
+    appCheckInstance = initializeAppCheck(app, {
+      provider: new ReCaptchaEnterpriseProvider(appCheckSiteKey),
+      isTokenAutoRefreshEnabled: true,
+    });
+    console.log("Firebase projectId:", firebaseConfig.projectId);
+    console.log("Firebase authDomain:", firebaseConfig.authDomain);
+    console.log("App Check enabled:", shouldEnableAppCheck);
+  }
+  
 export const firebaseAuth = getAuth(app);
 export const firebaseDb = getFirestore(app);
 export const firebaseStorage = getStorage(app);
 
-let appCheckInstance: ReturnType<typeof getAppCheck> | null = null;
-const appCheckSiteKey = process.env.NEXT_PUBLIC_APP_CHECK_SITE_KEY;
 
-if (appCheckSiteKey && typeof window !== "undefined") {
-  // Initialize only when configured.
-  appCheckInstance = initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider(appCheckSiteKey),
-    isTokenAutoRefreshEnabled: true
-  });
-}
 
 export async function getAppCheckTokenOrNull(): Promise<string | null> {
   if (!appCheckInstance) return null;
   try {
-    const token = await getToken(appCheckInstance, true);
-    return token ?? null;
+    const result = await getToken(appCheckInstance, true);
+    return result.token ?? null;
   } catch {
     return null;
   }

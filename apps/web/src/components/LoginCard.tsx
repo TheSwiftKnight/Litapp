@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebaseClient";
 
 export function LoginCard() {
@@ -20,8 +20,16 @@ export function LoginCard() {
         onClick={async () => {
           setLoading(true);
           try {
+            await setPersistence(firebaseAuth, browserLocalPersistence);
+
             const provider = new GoogleAuthProvider();
-            await signInWithPopup(firebaseAuth, provider);
+            const result = await signInWithPopup(firebaseAuth, provider);
+
+            console.log("signInWithPopup success:", result.user);
+            console.log("uid:", result.user.uid);
+            console.log("email:", result.user.email);
+          } catch (error) {
+            console.error("Google sign in failed:", error);
           } finally {
             setLoading(false);
           }

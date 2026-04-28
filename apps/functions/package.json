@@ -1,5 +1,5 @@
 {
-  "name": "novel-english-tutor-functions",
+  "name": "litapp-functions",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "dependencies": {
     "firebase-admin": "latest",
     "firebase-functions": "latest",
-    "novel-english-tutor-shared": "workspace:*",
+    "litapp-shared": "workspace:*",
     "pdf-parse": "latest",
     "unzipper": "latest",
     "zod": "latest"

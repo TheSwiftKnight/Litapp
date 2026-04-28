@@ -1,15 +1,15 @@
 {
-  "name": "novel-english-tutor-web",
+  "name": "litapp-web",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "novel-english-tutor-shared": "workspace:*",
+    "litapp-shared": "workspace:*",
     "firebase": "latest",
     "next": "latest",
     "next-pwa": "latest",

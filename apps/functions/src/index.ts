@@ -5,7 +5,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import unzipper from "unzipper";
-import type { FileType } from "novel-english-tutor-shared";
+import type { FileType } from "litapp-shared";
 
 admin.initializeApp({ projectId: process.env.FIREBASE_PROJECT_ID });
 

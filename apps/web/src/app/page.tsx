@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect } from "react";
 import { AppShell } from "@/components/AppShell";
 import { LoginCard } from "@/components/LoginCard";
 import { useAuthState } from "@/lib/useAuthState";
@@ -12,9 +12,10 @@ export default function Page() {
   const signedIn = !!user;
 
   // Keep a stable initial location.hash for static export.
-  useMemo(() => {
-    if (typeof window === "undefined") return;
-    if (!window.location.hash) window.location.hash = initialHash;
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.location.hash = initialHash;
+    }
   }, []);
 
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;

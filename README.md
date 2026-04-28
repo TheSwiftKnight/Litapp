@@ -1,4 +1,4 @@
-# novel-english-tutor (MVP)
+# litapp (MVP)
 
 Monorepo with:
 - `apps/web`: Next.js + TypeScript + PWA (Firebase Auth, client-side search, flashcards, review UI)

@@ -1,5 +1,5 @@
 {
-  "name": "novel-english-tutor-api",
+  "name": "litapp-api",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
@@ -10,14 +10,17 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "firebase-admin": "latest",
+    "cors": "^2.8.6",
     "express": "latest",
-    "zod": "latest",
-    "novel-english-tutor-shared": "workspace:*"
+    "firebase-admin": "latest",
+    "litapp-shared": "workspace:*",
+    "zod": "latest"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
     "tsx": "latest",
-    "typescript": "latest"
+    "typescript": "^6.0.2"
   }
 }
-

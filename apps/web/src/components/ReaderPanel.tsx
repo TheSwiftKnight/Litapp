@@ -14,7 +14,7 @@ import { firebaseDb } from "@/lib/firebaseClient";
 import { downloadJsonFromStorage } from "@/lib/storageJson";
 import { ngrams, tokenizeEnglish } from "@/lib/search";
 
-import type { ParsedChapter, ParsedManifest, ParsedSegment } from "novel-english-tutor-shared";
+import type { ParsedChapter, ParsedManifest, ParsedSegment } from "litapp-shared";
 
 type SearchIndexJson = {
   version: number;
@@ -63,8 +63,8 @@ export function ReaderPanel({
 
   const [bookStatus, setBookStatus] = useState<string | null>(null);
 
-  const chapterCache = useRef<Record<string, ParsedChapter>>({});
-  const ongoingChapterLoads = useRef<Record<string, Promise<ParsedChapter>>>({});
+  const chapterCache = useRef<Record<string, ParsedChapter|undefined>>({});
+  const ongoingChapterLoads = useRef<Record<string, Promise<ParsedChapter>|undefined>>({});
 
   const storageRoot = useMemo(() => (bookId ? `users/${userUid}/books/${bookId}` : null), [userUid, bookId]);
 
@@ -124,6 +124,9 @@ export function ReaderPanel({
     const p = downloadJsonFromStorage<ParsedChapter>(`${storageRoot}/parsed/chapters/${chapterId}.json`).then((ch) => {
       chapterCache.current[chapterId] = ch;
       return ch;
+    }).catch((err) => {
+      delete ongoingChapterLoads.current[chapterId];
+      throw err;
     });
     ongoingChapterLoads.current[chapterId] = p;
     return p;

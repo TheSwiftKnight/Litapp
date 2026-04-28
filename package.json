@@ -1,5 +1,5 @@
 {
-  "name": "novel-english-tutor",
+  "name": "litapp",
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel dev",
